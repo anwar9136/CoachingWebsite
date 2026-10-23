@@ -2593,7 +2593,18 @@
   }
 
   .about-grid {
+    grid-template-areas:
+      "content"
+      "image";
     gap: 36px;
+  }
+
+  .about-content {
+    grid-area: content;
+  }
+
+  .about-photo-wrapper {
+    grid-area: image;
   }
 
   .about-photo-container {
