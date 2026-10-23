@@ -42,9 +42,9 @@ const sections = [
   ["faculty", Faculty],
   ["fees", Fees],
   ["testimonials", Testimonials],
-  ["enquiry", Enquiry],
-  ["visit", VisitMap],
   ["faq", Faq],
+  ["visit", VisitMap],
+  ["enquiry", Enquiry],
   ["contact", Contact],
 ] as const;
 

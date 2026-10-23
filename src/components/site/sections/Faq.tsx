@@ -9,30 +9,13 @@ export function Faq() {
   return (
     <section id="faq" className="faq-section">
       <div className="container-page faq-layout">
-        <div className="faq-copy-stack">
-          <Reveal className="faq-left">
-            <p className="eyebrow">
-              <span className="saffron-dot" aria-hidden="true" />
-              {faqConfig.eyebrow}
-            </p>
-            <h2 className="section-heading-h2 faq-title">{faqConfig.title}</h2>
-          </Reveal>
-
-          <Reveal delay={160} className="faq-talk-card">
-            <p className="faq-talk-title">Still have questions?</p>
-            <p className="faq-talk-sub">
-              Message us on WhatsApp and we'll help you choose the right programme.
-            </p>
-            <a
-              href={whatsappLink(wa, siteConfig.contact.whatsappMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-navy btn-navy-sm"
-            >
-              Chat on WhatsApp
-            </a>
-          </Reveal>
-        </div>
+        <Reveal className="faq-left">
+          <p className="eyebrow">
+            <span className="saffron-dot" aria-hidden="true" />
+            {faqConfig.eyebrow}
+          </p>
+          <h2 className="section-heading-h2 faq-title">{faqConfig.title}</h2>
+        </Reveal>
 
         <Reveal delay={100} className="faq-accordion-card" role="list">
           {faqConfig.items.map((f, i) => (
@@ -40,6 +23,21 @@ export function Faq() {
               <FaqItem question={f.q} answer={f.a} defaultOpen={i === 0} />
             </div>
           ))}
+        </Reveal>
+
+        <Reveal className="faq-talk-card">
+          <p className="faq-talk-title">Still have questions?</p>
+          <p className="faq-talk-sub">
+            Message us on WhatsApp and we'll help you choose the right programme.
+          </p>
+          <a
+            href={whatsappLink(wa, siteConfig.contact.whatsappMessage)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-navy btn-navy-sm"
+          >
+            Chat on WhatsApp
+          </a>
         </Reveal>
       </div>
     </section>

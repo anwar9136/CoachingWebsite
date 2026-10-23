@@ -1621,14 +1621,20 @@
   .faq-layout {
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-areas:
+      "intro questions"
+      "support questions";
+    grid-template-rows: min-content 1fr;
     gap: clamp(36px, 5vw, 72px);
     align-items: start;
   }
 
-  .faq-copy-stack {
-    display: grid;
-    align-content: start;
-    gap: 32px;
+  .faq-left {
+    grid-area: intro;
+  }
+
+  .faq-accordion-card {
+    grid-area: questions;
   }
 
   .faq-title {
@@ -1636,7 +1642,8 @@
   }
 
   .faq-talk-card {
-    margin-top: 0;
+    grid-area: support;
+    margin-top: 32px;
     padding: 24px 26px;
     border: 1px solid #e5e0d2;
     border-radius: 24px;
@@ -2442,10 +2449,23 @@
 @media (max-width: 899px) {
   .contact-big-card,
   .about-grid,
-  .faq-layout,
   .fees-layout,
   .footer-top {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .faq-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "intro"
+      "questions"
+      "support";
+    grid-template-rows: auto;
+    gap: 32px;
+  }
+
+  .faq-talk-card {
+    margin-top: 0;
   }
 
   .hero-right {
@@ -2656,25 +2676,7 @@
   }
 
   .faq-talk-card {
-    grid-column: 1 / -1;
-    margin-top: 0;
     padding: 20px;
-  }
-
-  .faq-copy-stack {
-    display: contents;
-  }
-
-  .faq-left {
-    order: 1;
-  }
-
-  .faq-accordion-card {
-    order: 2;
-  }
-
-  .faq-talk-card {
-    order: 3;
   }
 
   .faq-trigger {
