@@ -36,10 +36,10 @@ export function Fees() {
                 <p className="fees-prog-name">{row.programme}</p>
                 <p className="fees-prog-level">{row.level}</p>
               </div>
-              <p role="cell" className="fees-timing">
+              <p role="cell" className="fees-timing" data-label={feesConfig.columns[1]}>
                 {row.timing}
               </p>
-              <p role="cell" className="fees-amount">
+              <p role="cell" className="fees-amount" data-label={feesConfig.columns[2]}>
                 {row.fee}
               </p>
             </div>

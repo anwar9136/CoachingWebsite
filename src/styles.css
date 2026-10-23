@@ -63,7 +63,6 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
   }
 
   /* Focus ring: 2px solid navy outline, 3px offset on every interactive element */
@@ -117,7 +116,7 @@
   .container-page {
     width: 100%;
     max-width: 1200px;
-    padding-inline: 24px;
+    padding-inline: clamp(16px, 4vw, 24px);
     margin-inline: auto;
   }
 
@@ -152,7 +151,7 @@
   .section-heading-h2 {
     margin: 16px 0 0;
     color: #101827;
-    font-size: clamp(34px, 4.2vw, 52px);
+    font-size: clamp(30px, 4.2vw, 52px);
     font-weight: 600;
     line-height: 1.06;
     letter-spacing: -0.03em;
@@ -395,6 +394,9 @@
     position: fixed;
     inset: 106px 0 auto;
     z-index: 45;
+    max-height: calc(100dvh - 106px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: rgba(247, 245, 239, 0.98);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid #e5e0d2;
@@ -411,6 +413,10 @@
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
+  }
+
+  .mobile-nav-panel.is-scrolled {
+    top: 72px;
   }
 
   .mobile-nav-link {
@@ -451,11 +457,13 @@
 
   .hero-left {
     max-width: 600px;
+    min-width: 0;
   }
 
   .hero-right {
     position: relative;
     padding-bottom: 30px;
+    min-width: 0;
   }
 
   .hero-eyebrow-wrapper {
@@ -926,12 +934,13 @@
 
   .courses-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
     gap: 20px;
     margin-top: 28px;
   }
 
   .course-card {
+    min-width: 0;
     background: #fbfaf6;
     border: 1px solid #e5e0d2;
     border-radius: 24px;
@@ -1569,6 +1578,10 @@
     transition: background-color 160ms ease;
   }
 
+  .fees-table-row > :first-child {
+    min-width: 0;
+  }
+
   .fees-table-row:hover {
     background: #fbfaf6;
   }
@@ -1612,12 +1625,18 @@
     align-items: start;
   }
 
+  .faq-copy-stack {
+    display: grid;
+    align-content: start;
+    gap: 32px;
+  }
+
   .faq-title {
     max-width: 10ch;
   }
 
   .faq-talk-card {
-    margin-top: 32px;
+    margin-top: 0;
     padding: 24px 26px;
     border: 1px solid #e5e0d2;
     border-radius: 24px;
@@ -2033,8 +2052,14 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    min-width: 0;
     color: #c9ceda;
     font-size: 15px;
+  }
+
+  .contact-info-item > :last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .contact-info-icon {
@@ -2414,8 +2439,7 @@
   }
 }
 
-@media (max-width: 1080px) {
-  .hero-grid,
+@media (max-width: 899px) {
   .contact-big-card,
   .about-grid,
   .faq-layout,
@@ -2428,32 +2452,24 @@
     max-width: 42rem;
   }
 
-  .why-layout {
-    grid-template-columns: 1fr;
-    gap: 2rem;
+  .hero-photo-parallax {
+    inset: 0;
   }
 
-  .why-grid,
+  .why-grid-box,
   .faculty-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .courses-row-1,
-  .courses-row-2,
-  .hero-stats {
-    grid-template-columns: 1fr;
+  .footer-top > :first-child {
+    grid-column: 1 / -1;
   }
 }
 
-@media (max-width: 899px) {
-  .hero-photo-parallax {
-    inset: 0;
-  }
-}
-
-@media (max-width: 800px) {
+@media (max-width: 639px) {
   .section-y,
   .courses-section,
+  .testimonials-section,
   .about-section,
   .faculty-section,
   .fees-section,
@@ -2461,15 +2477,47 @@
   .contact-section,
   .why-section,
   .results-section {
-    padding-block: 4rem;
+    padding-block: 48px;
   }
 
   .hero-section {
-    padding: 1.25rem 0 3rem;
+    padding: 24px 0 48px;
   }
 
   .hero-title {
-    font-size: clamp(2.8rem, 13vw, 4.4rem);
+    font-size: clamp(40px, 10.5vw, 66px);
+  }
+
+  .hero-highlight-underline {
+    display: inline;
+    padding-inline: 0;
+    white-space: normal;
+  }
+
+  .hero-photo-container {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+  }
+
+  .hero-ctas {
+    margin-top: 24px;
+    gap: 10px;
+  }
+
+  .hero-exam-items {
+    flex-wrap: wrap;
+    row-gap: 4px;
+  }
+
+  .hero-float-card {
+    max-width: calc(100% - 24px);
+    gap: 9px;
+    padding: 10px 12px;
+  }
+
+  .hero-photo-slot {
+    padding: 16px;
   }
 
   .courses-header,
@@ -2480,26 +2528,354 @@
     align-items: flex-start;
   }
 
-  .about-small-cards,
-  .form-grid-2,
-  .why-grid,
+  .courses-header {
+    gap: 16px;
+  }
+
+  .courses-header-right {
+    max-width: 42ch;
+  }
+
+  .courses-tab-wrapper {
+    margin-top: 28px;
+  }
+
+  .courses-tab-track {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.6fr);
+    border-radius: 20px;
+  }
+
+  .courses-tab-btn {
+    justify-content: center;
+    height: auto;
+    min-height: 44px;
+    padding: 10px 8px;
+    font-size: 13px;
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .course-card {
+    min-height: 0;
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .course-card-title {
+    font-size: clamp(23px, 6vw, 28px);
+  }
+
+  .course-card-footer {
+    flex-wrap: wrap;
+    gap: 10px 16px;
+  }
+
+  .about-grid {
+    gap: 36px;
+  }
+
+  .about-photo-container {
+    min-height: 0;
+    border-radius: 22px;
+  }
+
+  .about-photo-img {
+    border-radius: 22px;
+  }
+
+  .about-desc {
+    margin-top: 16px;
+    font-size: 16px;
+  }
+
+  .about-check-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .why-grid-box,
   .faculty-grid {
     grid-template-columns: 1fr;
   }
 
-  .fees-table-head,
+  .why-grid-box {
+    margin-top: 36px;
+  }
+
+  .why-cell {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .why-cell-title {
+    margin-top: 18px;
+  }
+
+  .faculty-grid {
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .faculty-photo-tile {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .faculty-info {
+    padding: 18px 20px 22px;
+  }
+
+  .fees-layout,
+  .faq-layout {
+    gap: 32px;
+  }
+
   .fees-table-row {
-    grid-template-columns: 1fr;
-    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    gap: 12px 16px;
+    padding: 18px 16px;
   }
 
-  .fees-table-head {
-    display: none;
+  .fees-table-row > :first-child {
+    grid-column: 1 / -1;
   }
 
-  .floating-card {
-    position: static;
-    margin-top: 1rem;
+  .fees-timing::before,
+  .fees-amount::before {
+    display: block;
+    margin-bottom: 3px;
+    color: #6b7280;
+    content: attr(data-label);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .faq-talk-card {
+    grid-column: 1 / -1;
+    margin-top: 0;
+    padding: 20px;
+  }
+
+  .faq-copy-stack {
+    display: contents;
+  }
+
+  .faq-left {
+    order: 1;
+  }
+
+  .faq-accordion-card {
+    order: 2;
+  }
+
+  .faq-talk-card {
+    order: 3;
+  }
+
+  .faq-trigger {
+    padding: 18px 16px;
+    font-size: 15px;
+  }
+
+  .faq-answer {
+    padding: 0 16px 18px;
+  }
+
+  .visit-map-card {
+    gap: 24px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .visit-map-info-list {
+    margin-top: 22px;
+    gap: 14px;
+  }
+
+  .visit-map-actions {
+    margin-top: 22px;
+  }
+
+  .visit-map-btn {
+    padding-inline: 16px;
+  }
+
+  .visit-map-panel {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .contact-big-card {
+    gap: 24px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+
+  .contact-form-card {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+
+  .contact-h2 {
+    margin-top: 14px;
+    font-size: clamp(30px, 8vw, 40px);
+  }
+
+  .contact-info-list {
+    gap: 12px;
+    margin-top: 22px;
+  }
+
+  .form-grid-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .footer-top {
+    gap: 28px;
+  }
+
+  .footer-top > :first-child {
+    grid-column: auto;
+  }
+
+  .footer-bottom {
+    gap: 8px;
+    margin-top: 32px;
+  }
+
+  .mobile-nav-panel {
+    inset: 98px 0 auto;
+    max-height: calc(100dvh - 98px);
+  }
+
+  .mobile-nav-panel.is-scrolled {
+    top: 64px;
+    max-height: calc(100dvh - 64px);
+  }
+
+  .announcement-inner {
+    padding-inline: 16px;
+    font-size: 13px;
+  }
+
+  .site-header {
+    height: 64px;
+  }
+
+  .sticky-whatsapp-btn {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    width: 48px;
+    height: 48px;
+  }
+
+  .sticky-whatsapp-pulse-dot {
+    top: 8px;
+    right: 8px;
+  }
+
+  .container-page {
+    padding-inline: 16px;
+  }
+
+  body {
+    font-size: 16px;
+  }
+
+  .hero-ctas > a {
+    white-space: nowrap;
+  }
+
+  .hero-ctas .btn-saffron,
+  .hero-ctas .btn-ghost {
+    padding-inline: 14px;
+  }
+
+  .hero-photo-slot .hero-photo-slot-title {
+    font-size: 15px;
+  }
+
+  .results-header {
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .testimonials-grid {
+    margin-top: 32px;
+    gap: 16px;
+  }
+
+  .testimonials-card {
+    padding: 24px;
+  }
+
+  .results-grid {
+    gap: 14px;
+  }
+
+  .result-card {
+    padding: 22px;
+    border-radius: 20px;
+  }
+
+  .result-score {
+    margin-top: 18px;
+    font-size: 28px;
+  }
+
+  .faq-accordion-card {
+    border-radius: 20px;
+  }
+
+  .contact-submit,
+  .contact-whatsapp-btn {
+    height: 48px;
+  }
+
+  .hero-whatsapp-row {
+    margin-top: 16px;
+  }
+
+  .section-heading-h2 {
+    font-size: clamp(30px, 7.2vw, 42px);
+  }
+}
+
+@media (min-width: 400px) and (max-width: 639px) {
+  .hero-ctas {
+    flex-wrap: nowrap;
+  }
+
+  .hero-ctas > a {
+    flex: 1 1 0;
+    height: auto;
+    min-height: 52px;
+    padding: 10px 12px;
+    font-size: 13px;
+    line-height: 1.2;
+    white-space: normal;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 899px) {
+  .footer-top {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .footer-top > :first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-whatsapp-pulse-dot {
+    animation: none;
   }
 }
 

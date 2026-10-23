@@ -108,7 +108,7 @@ export function Navbar() {
       {/* ── Mobile slide-down menu ── */}
       <div
         id="mobile-nav-panel"
-        className={cn("mobile-nav-panel", open && "is-open")}
+        className={cn("mobile-nav-panel", open && "is-open", scrolled && "is-scrolled")}
         aria-label="Mobile navigation"
       >
         <div className="container-page py-6">

@@ -9,14 +9,16 @@ export function Faq() {
   return (
     <section id="faq" className="faq-section">
       <div className="container-page faq-layout">
-        <Reveal className="faq-left">
-          <p className="eyebrow">
-            <span className="saffron-dot" aria-hidden="true" />
-            {faqConfig.eyebrow}
-          </p>
-          <h2 className="section-heading-h2 faq-title">{faqConfig.title}</h2>
+        <div className="faq-copy-stack">
+          <Reveal className="faq-left">
+            <p className="eyebrow">
+              <span className="saffron-dot" aria-hidden="true" />
+              {faqConfig.eyebrow}
+            </p>
+            <h2 className="section-heading-h2 faq-title">{faqConfig.title}</h2>
+          </Reveal>
 
-          <div className="faq-talk-card">
+          <Reveal delay={160} className="faq-talk-card">
             <p className="faq-talk-title">Still have questions?</p>
             <p className="faq-talk-sub">
               Message us on WhatsApp and we'll help you choose the right programme.
@@ -29,8 +31,8 @@ export function Faq() {
             >
               Chat on WhatsApp
             </a>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         <Reveal delay={100} className="faq-accordion-card" role="list">
           {faqConfig.items.map((f, i) => (
