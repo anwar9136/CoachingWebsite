@@ -41,23 +41,27 @@ export function Results() {
         <div className="results-grid">
           {hasRealData
             ? resultsConfig.items.map((r, i) => (
-                <Reveal key={i} delay={i * 70} as="article" className="result-card">
-                  <div className="result-avatar" aria-hidden="true">
-                    <User size={32} strokeWidth={1.5} color="#6B7280" />
-                  </div>
-                  <p className="result-score">{r.value}</p>
-                  <p className="result-name">{r.label}</p>
-                  {r.note && <p className="result-meta">{r.note}</p>}
+                <Reveal key={i} delay={i * 80} className="card-reveal">
+                  <article className="result-card">
+                    <div className="result-avatar" aria-hidden="true">
+                      <User size={32} strokeWidth={1.5} color="#6B7280" />
+                    </div>
+                    <p className="result-score">{r.value}</p>
+                    <p className="result-name">{r.label}</p>
+                    {r.note && <p className="result-meta">{r.note}</p>}
+                  </article>
                 </Reveal>
               ))
             : previewCards.map((card, i) => (
-                <Reveal key={i} delay={i * 70} as="article" className="result-card">
-                  <div className="result-avatar" aria-hidden="true">
-                    <User size={32} strokeWidth={1.5} color="#6B7280" />
-                  </div>
-                  <p className="result-score">{card.score}</p>
-                  <p className="result-name">{card.name}</p>
-                  <p className="result-meta">{card.examYear}</p>
+                <Reveal key={i} delay={i * 80} className="card-reveal">
+                  <article className="result-card">
+                    <div className="result-avatar" aria-hidden="true">
+                      <User size={32} strokeWidth={1.5} color="#6B7280" />
+                    </div>
+                    <p className="result-score">{card.score}</p>
+                    <p className="result-name">{card.name}</p>
+                    <p className="result-meta">{card.examYear}</p>
+                  </article>
                 </Reveal>
               ))}
         </div>

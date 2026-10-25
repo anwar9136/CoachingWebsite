@@ -17,6 +17,8 @@ import { Faq } from "@/components/site/sections/Faq";
 import { VisitMap } from "@/components/site/sections/VisitMap";
 import { Enquiry } from "@/components/site/sections/Enquiry";
 import { Contact } from "@/components/site/sections/Contact";
+import { ScrollProgressBar } from "@/components/site/ScrollProgressBar";
+import { MarqueeBand } from "@/components/site/MarqueeBand";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,9 +53,11 @@ const sections = [
 function Index() {
   return (
     <>
+      <ScrollProgressBar />
       <Navbar />
       <main>
         <Hero />
+        <MarqueeBand />
         {sections.map(([key, Section]) => (isSectionVisible(key) ? <Section key={key} /> : null))}
       </main>
       <Footer />

@@ -68,46 +68,48 @@ export function Courses() {
           className="courses-grid courses-grid-enter"
         >
           {currentCourses.map((c, i) => (
-            <Reveal key={c.title} delay={i * 70} as="article" className="course-card">
-              {/* Top row */}
-              <div className="course-card-top">
-                <span className="course-class-text">{c.level}</span>
-                <span className="course-number-tile" aria-hidden="true">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
+            <Reveal key={c.title} delay={i * 80} className="card-reveal">
+              <article className="course-card">
+                {/* Top row */}
+                <div className="course-card-top">
+                  <span className="course-class-text">{c.level}</span>
+                  <span className="course-number-tile" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
 
-              {/* Title */}
-              <h3 className="course-card-title">{c.title}</h3>
+                {/* Title */}
+                <h3 className="course-card-title">{c.title}</h3>
 
-              {/* Description */}
-              {c.description && <p className="course-card-desc">{c.description}</p>}
+                {/* Description */}
+                {c.description && <p className="course-card-desc">{c.description}</p>}
 
-              {/* Plain text subjects line with dot separator */}
-              {c.subjects && c.subjects.length > 0 && (
-                <p className="course-subjects-line">{c.subjects.join(" · ")}</p>
-              )}
+                {/* Plain text subjects line with dot separator */}
+                {c.subjects && c.subjects.length > 0 && (
+                  <p className="course-subjects-line">{c.subjects.join(" · ")}</p>
+                )}
 
-              {/* Spacer */}
-              <div className="course-spacer" />
+                {/* Spacer */}
+                <div className="course-spacer" />
 
-              {/* Footer */}
-              <div className="course-card-footer">
-                <span className="course-duration-text">Duration · {c.duration}</span>
-                <a
-                  href={c.cta?.href || "#enquiry"}
-                  className="course-enquire-link"
-                  aria-label={`Enquire about ${c.title}`}
-                >
-                  <span>Enquire</span>
-                  <ArrowUpRight
-                    size={17}
-                    strokeWidth={2.2}
-                    className="course-enquire-arrow"
-                    aria-hidden="true"
-                  />
-                </a>
-              </div>
+                {/* Footer */}
+                <div className="course-card-footer">
+                  <span className="course-duration-text">Duration · {c.duration}</span>
+                  <a
+                    href={c.cta?.href || "#enquiry"}
+                    className="course-enquire-link"
+                    aria-label={`Enquire about ${c.title}`}
+                  >
+                    <span>Enquire</span>
+                    <ArrowUpRight
+                      size={17}
+                      strokeWidth={2.2}
+                      className="course-enquire-arrow"
+                      aria-hidden="true"
+                    />
+                  </a>
+                </div>
+              </article>
             </Reveal>
           ))}
         </div>

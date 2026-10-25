@@ -74,6 +74,11 @@ export const siteConfig = {
       "Monthly parent meetings",
       "Weekly doubt sessions",
     ],
+    stats: [
+      { value: 4, label: "Programmes" },
+      { value: 5, label: "Grades (8–12)" },
+      { value: 6, label: "Teaching days a week" },
+    ],
   },
 
   contact: {

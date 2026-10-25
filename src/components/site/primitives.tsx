@@ -6,6 +6,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { animate } from "framer-motion";
 import * as Icons from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -33,31 +34,39 @@ export function Reveal({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reducedMotion || typeof IntersectionObserver === "undefined") {
+    if (typeof IntersectionObserver === "undefined") {
       el.classList.add("is-visible");
       return;
     }
+    let stopAnimation: (() => void) | undefined;
     const io = new IntersectionObserver(
       ([e]) => {
         if (e?.isIntersecting) {
           el.classList.add("is-visible");
+          const smallScreen = window.matchMedia("(max-width: 479px)").matches;
+          const keyframes = smallScreen
+            ? { opacity: [0, 1], y: [24, 0] }
+            : { opacity: [0, 1], y: [46, 0], scale: [0.97, 1] };
+          const controls = animate(el, keyframes, {
+            duration: 0.8,
+            delay: delay / 1000,
+            ease: [0.2, 0.7, 0.2, 1],
+          });
+          stopAnimation = () => controls.stop();
           io.disconnect();
         }
       },
-      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
+      { threshold: 0.2 },
     );
     io.observe(el);
     document.documentElement.classList.add("motion-ready");
-    return () => io.disconnect();
-  }, []);
+    return () => {
+      io.disconnect();
+      stopAnimation?.();
+    };
+  }, [delay]);
   return (
-    <Tag
-      ref={ref}
-      className={cn("reveal", className)}
-      style={{ transitionDelay: `${delay}ms` }}
-      {...rest}
-    >
+    <Tag ref={ref} className={cn("reveal", className)} {...rest}>
       {children}
     </Tag>
   );

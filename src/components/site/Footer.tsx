@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+import { animate, motion } from "framer-motion";
 import { siteConfig } from "@/config/siteConfig";
 import { courseConfig } from "@/config/courseConfig";
 import { isSectionVisible } from "@/utils/sections";
@@ -9,6 +11,53 @@ const academyLinks = [
   { label: "Fees & timings", href: "#fees", section: "fees" },
   { label: "Contact", href: "#enquiry", section: "enquiry" },
 ];
+
+function FooterGiantText() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    let started = false;
+    let observer: IntersectionObserver | undefined;
+    let stopAnimation: (() => void) | undefined;
+    const observe = () => {
+      if (started) return;
+      started = true;
+      el.classList.add("footer-giant-text-pending");
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry?.isIntersecting) return;
+          observer?.disconnect();
+          const controls = animate(
+            el,
+            { opacity: [0, 1], y: ["40%", 0] },
+            { duration: 0.8, ease: [0.2, 0.7, 0.2, 1] },
+          );
+          stopAnimation = () => controls.stop();
+          void controls.then(() => el.classList.remove("footer-giant-text-pending"));
+        },
+        { threshold: 0.2 },
+      );
+      observer.observe(el);
+    };
+
+    observe();
+    return () => {
+      observer?.disconnect();
+      stopAnimation?.();
+    };
+  }, []);
+
+  return (
+    <div className="footer-giant-clip">
+      <motion.div ref={ref} className="footer-giant-text" aria-hidden="true">
+        {siteConfig.name.toUpperCase()}
+      </motion.div>
+    </div>
+  );
+}
 
 export function Footer() {
   const c = siteConfig.contact;
@@ -56,6 +105,7 @@ export function Footer() {
           <p>{hours}</p>
         </Reveal>
       </div>
+      <FooterGiantText />
     </footer>
   );
 }

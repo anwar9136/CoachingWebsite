@@ -62,7 +62,7 @@ export function WhyChooseUs() {
           {items.map((item, i) => {
             const IconCmp = item.icon;
             return (
-              <Reveal key={item.title} delay={i * 55} className="why-cell">
+              <Reveal key={item.title} delay={i * 80} className="why-cell">
                 <div className="why-icon-tile" aria-hidden="true">
                   <IconCmp size={22} strokeWidth={1.75} color="#E7A044" />
                 </div>

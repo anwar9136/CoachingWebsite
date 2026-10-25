@@ -6,7 +6,7 @@ export function Trust() {
     <section aria-label="Learning approach" className="trust-strip">
       <div className="container-page grid md:grid-cols-3">
         {siteConfig.trust.map((t, i) => (
-          <Reveal key={t.label} delay={i * 60} className="trust-item flex gap-4">
+          <Reveal key={t.label} delay={i * 80} className="trust-item flex gap-4">
             <span className="trust-icon">
               <Icon name={t.icon} className="h-5 w-5" />
             </span>
